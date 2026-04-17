@@ -1,0 +1,104 @@
+
+<div id="app" style="font-family:sans-serif;display:flex;gap:16px;padding:16px;align-items:flex-start;min-height:400px"></div>
+
+<script>
+var STEPS = {
+  find:{icon:'🔍',title:'Find a lead',color:'#085041',bg:'#E1F5EE',border:'#0F6E56',
+    html:'<b>Your goal</b><p style="margin:6px 0">Find orgs that could get value from Climate Week as hosts, speakers, venue partners, or amplifiers who share with their members.</p><br><b>What to look for</b><ul><li>We have <b>7 themes</b> — use these to guide who you target:<br><br><b>1. Climate Innovation &amp; Capital</b> — Climate Finance, Startups<br><b>2. Clean Energy</b> — Climate &amp; AI, Carbon Capture &amp; Removal<br><b>3. Sustainable Industry &amp; Infrastructure</b> — Built Environment, Corporate Sustainability, Circular Economy, Transportation, Fashion<br><b>4. Nature, Food &amp; Biodiversity</b> — Nature-based Solutions, Biodiversity, Food &amp; Agriculture, Blue Economy<br><b>5. Climate Adaptation &amp; Resilience</b><br><b>6. Policy &amp; Public Sector</b><br><b>7. Climate Careers &amp; Talent</b> — Future of Work, Workforce Development</li><li><b>Indigenous-led organizations — this is a priority.</b> Actively seek these out.</li><li>Grassroots, youth, and social impact groups</li><li>Sector-agnostic: if you can see a genuine connection, explore it</li></ul><br><b>Where to look</b><ul><li>LinkedIn, Google, newsletters, similar event websites\' partner/sponsor lists, word of mouth</li><li>Check the CRM for new opps — the team keeps adding leads</li></ul><br><b>What to avoid</b><ul><li>Oil, gas, fossil fuel companies</li><li>Flag borderline cases before reaching out</li></ul><br><div style="background:#fff;border:2px dashed #0F6E56;border-radius:10px;padding:10px;font-size:12px"><b>CRM rule:</b> Put your name on a lead before reaching out.<br><br>Every note needs: <b>date, summary, next steps.</b><br><span style="color:#555;font-style:italic">(04/15) Interested in event, upcoming call on 04/17. (04/17) They\'ve signed up as event organizer/speaker.</span><br><br>The CRM is our single source of truth.</div>'},
+  email:{icon:'✉️',title:'Send the email or message',color:'#085041',bg:'#E1F5EE',border:'#0F6E56',
+    html:'<p>Use the template as your starting point. Adapt the tone and wording to fit the org — keep the key links intact.</p><br><b>Where to find them</b><ul><li>Website team/contact pages — professional email is best</li><li>LinkedIn if no email is listed</li><li>If no contact info found, use their webform submission</li></ul><br><b>The email covers</b><ul><li>Short intro to Vancouver PNW Climate Week</li><li>Ways to get involved: event host, speaker, sponsor, or member amplifier</li><li>Links to the sign-up forms</li><li>An offer to connect on a call</li><li>The slide deck for key info on the week</li></ul><br><div style="background:#fff;border:2px dashed #0F6E56;border-radius:10px;padding:10px;font-size:12px"><b>The goal:</b> get them to sign up in the database. Once they do, the opp is confirmed.<br><br>Update CRM status to <b>Contacted</b> once you\'ve sent the first message.</div>'},
+  response:{icon:'💬',title:'Did they reply?',color:'#444441',bg:'#F1EFE8',border:'#5F5E5A',
+    html:'<p>What happens next depends on what they say. Pick the path that matches your situation.</p><br><div id="branches"></div>'},
+  followup:{icon:'🕐',title:'Follow up',color:'#3C3489',bg:'#EEEDFE',border:'#534AB7',
+    html:'<b>Cadence</b><ul><li>Max 2-3 follow-ups total</li><li>Wait roughly one week between each</li><li>Keep them short — nudging, not pressuring</li></ul><br><b>If email is not landing</b><ul><li>Try LinkedIn if you can find their profile</li><li>Ask on WhatsApp if anyone has a personal contact at that org</li><li>If a teammate has a direct connection, loop them in instead</li></ul><br><b>When to stop</b><ul><li>No response after 3 attempts over 3 weeks: close the opp</li><li>Clear decline: close immediately, log any reason they gave</li><li>In both cases, keep them in the CRM for next year</li></ul><br><div style="background:#fff;border:2px dashed #534AB7;border-radius:10px;padding:10px;font-size:12px"><b>After 3 weeks with no reply:</b> log "no response" in the CRM and close the opp.</div>'},
+  call:{icon:'📞',title:'Jump on a call',color:'#633806',bg:'#FAEEDA',border:'#854F0B',
+    html:'<b>Before the call</b><ul><li>Review the slide deck — know the key numbers, themes, and demographic</li><li>Read a little about the org and the person you\'re meeting, and ask them about their goals</li><li>Know some of our already signed-up events — it helps the conversation</li><li>Reach out to your team lead if you need support getting ready for a call</li></ul><br><b>During the call</b><ul><li>Keep it open and exploratory</li><li>Show genuine curiosity about their work and goals</li><li>Understand their preferences and any no-nos if they share them</li><li>Walk through past events and themes to stir interest</li><li>If they can\'t host or speak, ask if they would share events with their members</li><li>Always encourage them to join the database before the call ends</li><li>Be flexible — whatever is low-barrier for them is the right answer</li></ul><br><div style="background:#fff;border:2px dashed #0F6E56;border-radius:10px;padding:10px;margin-bottom:8px;font-size:12px"><b>Sharing to members as a marketing partner:</b> loop in Vora at <a href="mailto:vora.kim@pnwclimateweek.org" style="color:#0F6E56">vora.kim@pnwclimateweek.org</a> and log it in the CRM.</div><div style="background:#fff;border:2px dashed #534AB7;border-radius:10px;padding:10px;font-size:12px"><b>Not ready to commit:</b> note it in the CRM with date and next steps, loop in team lead, check back closer to the week.</div><br><b>If they ask something you can\'t answer</b><ul><li>Sponsorship, budgets, cross-city: loop in your team lead before replying</li><li>When in doubt, message on WhatsApp first</li></ul>'},
+  confirmed:{icon:'🎉',title:'Confirmed!',color:'#085041',bg:'#E1F5EE',border:'#0F6E56',
+    html:'<p>They signed up in the database. Your work on this lead is done.</p><br><b>What to do</b><ul><li>Set CRM status to <b>Confirmed</b></li><li>If they are sharing to members as a marketing partner, loop in Vora at <a href="mailto:vora.kim@pnwclimateweek.org" style="color:#0F6E56">vora.kim@pnwclimateweek.org</a> and log it in the CRM</li></ul><br><div style="background:#fff;border:2px dashed #0F6E56;border-radius:10px;padding:10px;font-size:12px">Go find the next lead!</div>'},
+  declined:{icon:'📘',title:'Close: not interested',color:'#712B13',bg:'#FAECE7',border:'#993C1D',
+    html:'<p>They said no, or 3 follow-ups went unanswered. Close it cleanly.</p><br><b>What to do</b><ul><li>Set CRM status to <b>Not Interested / No Response</b></li><li>Log the date, any reason they gave, and whether to try again next year</li><li>Do not delete the record. Keep them in the CRM.</li></ul><br><div style="background:#fff;border:2px dashed #993C1D;border-radius:10px;padding:10px;font-size:12px">No need to follow up further. Move on to the next lead.</div>'},
+  escalate:{icon:'⚠️',title:'When to escalate',color:'#444441',bg:'#F1EFE8',border:'#5F5E5A',
+    html:'<p>Loop in your <b>team lead</b> if:</p><ul style="margin-top:8px"><li>An org asks about sponsorship or non-standard benefits</li><li>You are unsure if an org is a good fit</li><li>A contact mentions another city or cross-city visibility</li><li>Anything feels off or you are not sure how to respond</li></ul><br><div style="background:#fff;border:2px dashed #5F5E5A;border-radius:10px;padding:10px;font-size:12px"><b>When in doubt:</b> message on WhatsApp before you reply.<br><br><b>Marketing partner handoff:</b> <a href="mailto:vora.kim@pnwclimateweek.org" style="color:#0F6E56">vora.kim@pnwclimateweek.org</a><br><b>Everything else:</b> team lead.</div>'}
+};
+
+var ORDER = ['find','email','response','followup','call','confirmed','declined','escalate'];
+var active = null;
+
+function select(id){
+  active = id;
+  var s = STEPS[id];
+  var html = s.html;
+  if(id==='response'){
+    html += [
+      {id:'confirmed',bg:'#E1F5EE',bc:'#0F6E56',tc:'#085041',lbl:'🎉 They signed up!'},
+      {id:'call',bg:'#FAEEDA',bc:'#854F0B',tc:'#633806',lbl:'📞 They want a call first'},
+      {id:'declined',bg:'#FAECE7',bc:'#993C1D',tc:'#712B13',lbl:'✖ They said no'},
+      {id:'followup',bg:'#EEEDFE',bc:'#534AB7',tc:'#3C3489',lbl:'🕐 No reply yet'}
+    ].map(function(b){
+      return '<div onclick="select(\''+b.id+'\')" style="background:'+b.bg+';border:2.5px solid '+b.bc+';color:'+b.tc+';border-radius:12px;padding:10px 14px;font-size:13px;font-weight:800;cursor:pointer;margin-bottom:8px;transition:transform .1s" onmouseover="this.style.transform=\'scale(1.02)\'" onmouseout="this.style.transform=\'scale(1)\'">'+b.lbl+'</div>';
+    }).join('');
+  }
+  document.getElementById('panel').innerHTML =
+    '<div style="border-radius:16px;border:3px solid '+s.border+';background:'+s.bg+';padding:18px 20px">'+
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">'+
+        '<span style="font-size:26px">'+s.icon+'</span>'+
+        '<div style="font-size:16px;font-weight:800;color:'+s.color+'">'+s.title+'</div>'+
+      '</div>'+
+      '<div style="font-size:13px;color:'+s.color+';line-height:1.7">'+html+'</div>'+
+    '</div>';
+  document.querySelectorAll('.mapcard').forEach(function(el){
+    var eid = el.getAttribute('data-id');
+    var st = STEPS[eid];
+    el.style.border = '3px solid '+(eid===id ? st.border : 'transparent');
+    el.style.opacity = eid===id ? '1' : '0.72';
+    el.style.transform = eid===id ? 'scale(1.03)' : 'scale(1)';
+  });
+}
+
+function card(id,label,sub){
+  var s = STEPS[id];
+  return '<div class="mapcard" data-id="'+id+'" onclick="select(\''+id+'\')" style="border-radius:14px;background:'+s.bg+';border:3px solid transparent;padding:9px 10px;cursor:pointer;transition:all .15s;text-align:center;width:100%">'+
+    '<div style="font-size:18px">'+s.icon+'</div>'+
+    '<div style="font-size:11px;font-weight:800;color:'+s.color+';line-height:1.2;margin-top:2px">'+label+'</div>'+
+    (sub?'<div style="font-size:10px;color:'+s.color+';opacity:.7;margin-top:2px">'+sub+'</div>':'')+
+  '</div>';
+}
+
+function arrow(){
+  return '<div style="display:flex;justify-content:center;margin:2px 0"><svg width="12" height="18" viewBox="0 0 12 18"><line x1="6" y1="0" x2="6" y2="11" stroke="#B4B2A9" stroke-width="2"/><polygon points="6,18 1,9 11,9" fill="#B4B2A9"/></svg></div>';
+}
+
+var mapHTML =
+  '<div style="display:flex;flex-direction:column;align-items:center;min-width:176px;max-width:210px">'+
+    card('find','Find a lead','Use the 7 themes')+
+    arrow()+
+    card('email','Send the email','Website, LinkedIn, webform')+
+    arrow()+
+    '<div style="font-size:9px;font-weight:800;color:#888780;text-align:center;background:#F1EFE8;border-radius:20px;padding:3px 10px;margin:2px 0">Did they reply?</div>'+
+    '<div style="display:flex;align-items:flex-start;gap:4px;width:100%;margin-top:4px">'+
+      '<div style="display:flex;flex-direction:column;align-items:center;flex:1">'+
+        '<div style="font-size:9px;font-weight:800;color:#712B13;margin-bottom:3px;text-align:center">No reply</div>'+
+        card('followup','Follow up','Max 3x, weekly')+
+        arrow()+
+        card('declined','Close it','Log + keep in CRM')+
+      '</div>'+
+      '<div style="display:flex;flex-direction:column;align-items:center;flex:1">'+
+        '<div style="font-size:9px;font-weight:800;color:#085041;margin-bottom:3px;text-align:center">Signs up!</div>'+
+        card('confirmed','Confirmed!','Opp closed')+
+      '</div>'+
+      '<div style="display:flex;flex-direction:column;align-items:center;flex:1">'+
+        '<div style="font-size:9px;font-weight:800;color:#633806;margin-bottom:3px;text-align:center">Wants a call</div>'+
+        card('call','Jump on a call','Open + exploratory')+
+        arrow()+
+        card('confirmed','Confirmed!','')+
+      '</div>'+
+    '</div>'+
+    '<div style="margin-top:10px;width:100%">'+
+      '<div class="mapcard" data-id="escalate" onclick="select(\'escalate\')" style="border-radius:14px;background:#F1EFE8;border:3px solid transparent;padding:8px 10px;cursor:pointer;text-align:center;font-size:11px;font-weight:800;color:#5F5E5A;transition:all .15s">⚠️ When to escalate</div>'+
+    '</div>'+
+  '</div>';
+
+document.getElementById('app').innerHTML =
+  '<div style="flex-shrink:0">'+mapHTML+'</div>'+
+  '<div id="panel" style="flex:1;min-width:0"><div style="border-radius:16px;border:2px dashed #D3D1C7;padding:20px;text-align:center;color:#888780;font-size:13px">&#8592; Click any step to see details</div></div>';
+</script>
